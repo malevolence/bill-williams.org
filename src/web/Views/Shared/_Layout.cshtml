@@ -1,0 +1,61 @@
+@{
+    ViewData["SiteName"] = "Bill-Williams.org";
+}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] &mdash; @ViewData["SiteName"]</title>
+
+        <environment names="Development">
+            <link rel="stylesheet" href="~/css/bootstrap.css" />
+            <link rel="stylesheet" href="~/css/tether.min.css" />
+            <link rel="stylesheet" href="~/css/site.css" />
+        </environment>
+        <environment names="Staging,Production">
+            <link rel="stylesheet" href="~/css/bootstrap.min.css" asp-append-version="true" />
+            <link rel="stylesheet" href="~/css/tether.min.css" asp-append-version="true" />
+            <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        </environment>
+    </head>
+    <body>
+        @await Html.PartialAsync("_SiteNav")
+        <div class="container">
+        @if (IsSectionDefined("pageheader")) {
+            @RenderSection("pageheader", false)
+        } else {
+            <h1>@ViewData["Title"]</h1>
+        }
+            @await Html.PartialAsync("_Alerts")
+
+            @RenderBody()
+
+            <nav class="navbar navbar-fixed-bottom bg-inverse" style="background-color: #000;">
+                <div class="text-xs-center">&copy; @DateTime.Today.Year &ndash; @ViewData["SiteName"]</div>
+            </nav>
+        </div>
+
+        <environment names="Development">
+            <script src="~/lib/jquery.min.js"></script>
+            <script src="~/lib/tether.min.js"></script>
+            <script src="~/lib/bootstrap.min.js"></script>
+            <script src="~/js/formUtils.js" asp-append-version="true"></script>
+            <script src="~/js/socialUtils.js" asp-append-version="true"></script>
+        </environment>
+        <environment names="Staging,Production">
+            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.4.min.js"
+                    asp-fallback-src="~/lib/jquery.min.js"
+                    asp-fallback-test="window.jQuery">
+            </script>
+            <script src="~/lib/tether.min.js"></script>
+            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/bootstrap.min.js"
+                    asp-fallback-src="~/lib/bootstrap.min.js"
+                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+            </script>
+            <script src="~/js/site.min.js" asp-append-version="true"></script>
+        </environment>
+
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

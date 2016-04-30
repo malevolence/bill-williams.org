@@ -35,7 +35,9 @@ var jsLibSrc = [
 ];
 
 var cssLibSrc = [
-  bowerRoot + "tether/dist/css/tether.min.css"
+  bowerRoot + "tether/dist/css/tether.min.css",
+  "./content/glyphicons.min.css",
+  "./content/glyphicons-social.min.css"
 ];
 
 gulp.task("clean:js", function () {

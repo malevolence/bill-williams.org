@@ -11,6 +11,8 @@
         <environment names="Development">
             <link rel="stylesheet" href="~/css/bootstrap.css" />
             <link rel="stylesheet" href="~/css/tether.min.css" />
+            <link rel="stylesheet" href="~/css/glyphicons.min.css" />
+            <link rel="stylesheet" href="~/css/glyphicons-social.min.css" />
             <link rel="stylesheet" href="~/css/site.css" />
         </environment>
         <environment names="Staging,Production">
@@ -32,7 +34,10 @@
             @RenderBody()
 
             <nav class="navbar navbar-fixed-bottom bg-inverse" style="background-color: #000;">
-                <div class="text-xs-center">&copy; @DateTime.Today.Year &ndash; @ViewData["SiteName"]</div>
+                <div class="container">
+                    <div class="pull-xs-left">&copy; @DateTime.Today.Year &ndash; @ViewData["SiteName"]</div>
+                    <div class="pull-xs-right">@await Html.PartialAsync("_SocialIcons")</div>
+                </div>
             </nav>
         </div>
 
@@ -40,6 +45,7 @@
             <script src="~/lib/jquery.min.js"></script>
             <script src="~/lib/tether.min.js"></script>
             <script src="~/lib/bootstrap.min.js"></script>
+            <script src="~/js/main.js" asp-append-version="true"></script>
             <script src="~/js/formUtils.js" asp-append-version="true"></script>
             <script src="~/js/socialUtils.js" asp-append-version="true"></script>
         </environment>

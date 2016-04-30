@@ -2,8 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BW.Web.Data;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
+using Microsoft.Data.Entity;
+using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -17,7 +20,15 @@ namespace BW.Web
             // Set up configuration sources.
             var builder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
-                .AddEnvironmentVariables();
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+
+            if (env.IsDevelopment())
+            {
+                builder.AddUserSecrets();
+            }
+
+            builder.AddEnvironmentVariables();
+
             Configuration = builder.Build();
         }
 
@@ -26,9 +37,15 @@ namespace BW.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddEntityFramework()
+                .AddSqlServer()
+                .AddDbContext<SiteContext>(opts => opts.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
+
             services.AddCaching();
             services.AddSession();
-            // Add framework services.
+
+            services.AddScoped<ISiteRepository, EFSiteRepository>();
+
             services.AddMvc();
         }
 

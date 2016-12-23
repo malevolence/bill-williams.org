@@ -4,22 +4,23 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>@ViewData["Title"] &mdash; @ViewData["SiteName"]</title>
 
         <environment names="Development">
-            <link rel="stylesheet" href="~/css/bootstrap.css" />
-            <link rel="stylesheet" href="~/css/tether.min.css" />
-            <link rel="stylesheet" href="~/css/glyphicons.min.css" />
-            <link rel="stylesheet" href="~/css/glyphicons-social.min.css" />
-            <link rel="stylesheet" href="~/css/site.css" />
+            <link rel="stylesheet" href="~/css/bootstrap.css">
+            <link rel="stylesheet" href="~/css/tether.min.css">
+            <link rel="stylesheet" href="~/css/glyphicons.min.css">
+            <link rel="stylesheet" href="~/css/glyphicons-social.min.css">
+            <link rel="stylesheet" href="~/css/site.css">
         </environment>
         <environment names="Staging,Production">
-            <link rel="stylesheet" href="~/css/bootstrap.min.css" asp-append-version="true" />
-            <link rel="stylesheet" href="~/css/tether.min.css" asp-append-version="true" />
-            <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+            <link rel="stylesheet" href="~/css/bootstrap.min.css" asp-append-version="true">
+            <link rel="stylesheet" href="~/css/tether.min.css" asp-append-version="true">
+            <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true">
         </environment>
+        @RenderSection("styles", required: false)
     </head>
     <body>
         @await Html.PartialAsync("_SiteNav")
